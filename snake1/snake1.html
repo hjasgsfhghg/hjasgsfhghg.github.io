@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>贪吃蛇</title>
+        <link rel="stylesheet" href="style.css">
+      
+    </head>
+    <body>
+        <div id="map">
+            <div class="food" style="left:100px;top:100px"></div>
+        </div>
+        <div id="x"></div>
+       
+    </body>
+    <script type="text/javascript">
+        const width = 20,height = 20,size = 20;
+        let snackarr = [];
+        let foodx,foody;
+        let direction = [1,0];
+        let interval;
+        window.onload = function() {
+            let mapdom = document.getElementById('map');
+            mapdom.style.width = width * size + 'px';
+            mapdom.style.height = height * size + 'px';
+            init();
+            interval = setInterval(game,100);
+
+        }
+
+        document.onkeydown = function(e){
+            switch(e.keyCode){
+            case 37:if(direction[0] !=1) {direction = [-1,0]} break;
+            case 38:if(direction[1] !=1) {direction = [0,-1]} break;
+            case 39:if(direction[0] !=-1) {direction = [1,0]} break;
+            case 40:if(direction[1] !=-1) {direction = [0,1]} break;
+            case 13:init();interval = setInterval(game,100);break;
+            }
+        }
+
+        function game(){
+            check();
+            checkself();
+            if(isfood()) {
+                createfood();
+                addbody();
+            }
+            
+            let  snackhtml='';
+            for (let  i = 0 ; i < snackarr.length;i++){
+                snackhtml += '<div class="snackbody" style="left:' + snackarr[i].x*size + 'px;top:'+snackarr[i].y*size +'px"></div>'
+            }
+            snackhtml += '<div class="food" style="left:'+ foodx * size + 'px;top:'+foody * size+'px"></div>'
+            document.getElementById('map').innerHTML = snackhtml;
+            document.getElementById('x').innerHTML = snackarr[0].x;
+            move()
+        }
+
+                function init(){
+                snackarr = [] ;
+                snackarr[0] = {x:5,y:4};
+                snackarr[1] = {x:4,y:4};
+                snackarr[2] = {x:3,y:4};
+                createfood();
+            }
+            
+            function createfood() {
+                foodx = Math.floor(Math.random() * width);
+                foody = Math.floor(Math.random() * height);
+            }
+            
+            function move(){
+                for(let i = snackarr.length - 1;i > 0; i --){
+                    snackarr[i].x = snackarr[i - 1].x;
+                    snackarr[i].y = snackarr[i - 1].y;
+                }
+
+                snackarr[0].x += direction[0];
+                snackarr[0].y += direction[1];
+            }
+            
+            function check(){
+                let snackheader = snackarr[0];
+                if (snackheader.x < 0 || snackheader.y < 0 || snackheader.x >= width || snackheader.y >= height){
+                    clearInterval(interval);
+                    alert('shibai');
+                }
+            }
+            
+            function isfood(){
+                let snackheader = snackarr[0];
+                if(snackheader.x == foodx && snackheader.y == foody) return true;
+            }
+            
+            function addbody(){
+                let lastbody=snackarr[snackarr.length-1];
+                snackarr.push({x: lastbody.x,y:lastbody.y});
+
+            }
+            
+            function checkself(){
+                let snackheader = snackarr[0];
+                for (let i = 1;i< snackarr.length ; i++){
+                    if(snackarr[i].x == snackheader.x && snackarr[i].y == snackheader.y){
+                    alert('失败，咬到了自己');
+                    clearInterval(interval);
+                    }
+                }
+            }
+        
+
+    </script>
+</html>
