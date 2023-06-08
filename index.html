@@ -7,12 +7,12 @@
 
         <style>
             p {text-align: center;}
-            a {display: block;
+            div {display: block;
                 text-align: center;
             } 
-            /*.box{width: 500px;
+            .box{width: 500px;
                 height: 40px;
-                border: 2px solid red;
+                border: 3px solid black;
                 margin: auto;
 
             }
@@ -20,10 +20,18 @@
                 float: left;
                 width: 400px;
                 height: 38px;
-                outline: none;
                 border: none;
-            }*/
-            .box {
+            }
+            .button {
+                
+                width: 94px;
+                height: 38px;
+                border: none;
+
+            }
+            .snake1 {
+                font-size: 100px;
+                display: block;
                 text-align: center;
             }
 
@@ -35,19 +43,38 @@
         <p>测试</p>
         
 
-        <form class="box" target="_blank" method="get" action="https://www.baidu.com/s">
-			<input type="text" placeholder="请输入关键词" name="word" class="input" />
-			<input type="submit" value="在线搜索" class="button">
+        <form class="box" target="_blank" method="get" action="https://www.baidu.com/">
+			<input type="text" placeholder="baidu" name="word" class="input" />
+			<input type="submit" value="百度搜索" class="button">
 		</form>
+        <form class="box" target="_blank" method="get" action="https://www.runoob.com/">
+			<input type="text" placeholder="runoob" name="s" class="input" />
+			<input type="submit" value="菜鸟搜索" class="button">
+		</form>
+        
+        <div>
+            <a href="https://www.baidu.com/">baidu</a>
+            <a href="https://www.bilibili.com/">bilibili</a>
+            <a href="https://www.sjsdh.cn/">搜奇导航</a>
+            <a href="http://mail.163.com/">163网易邮箱</a>
+            <a href="https://xingye.me/game">星夜小游戏</a>
+            <a href="https://cg.163.com/#/mobile">网易云</a>
+            <a href="shiming.txt">实名名单</a>
+            <a href="https://cn.bing.com/translator?ref=TThis&text=&from=fr&to=zh-Hans">翻译</a>
+            <a href="https://www.runoob.com/">菜鸟教程</a>
+        </div>
+        
+        <div>
+            <a href="https://fuun.fun/go/828">mk48.io</a>
+            <a href="https://fuun.fun/go/810">school break</a>
+            <a href="https://fuun.fun/go/808">duck lings</a>
+            <a href="https://fuun.fun/go/798">Battle Dudes</a>
+            <a href="https://fuun.fun/go/787">Kiomet</a>
+            <a href="https://fuun.fun/go/701">Moo Moo</a>
+            <a href="https://fuun.fun/go/660">北大侠客行</a>
+        </div>
 
-        <a href="https://www.baidu.com/">baidu</a><br>
-        <a href="https://www.bilibili.com/">bilibili</a><br>
-        <a href="https://www.sjsdh.cn/">搜奇导航</a><br>
-        <a href="http://mail.163.com/">163网易邮箱</a><br>
-        <a href="https://xingye.me/game">星夜小游戏</a><br>
-        <a href="https://cg.163.com/#/mobile">网易云</a><br>
-        <a href="shiming.txt">实名名单</a>
-
+        <a class="snake1" href="snake1/snake1.html">贪吃蛇</a>
 
         <p>
             
