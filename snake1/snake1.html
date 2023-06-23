@@ -1,113 +1,157 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>贪吃蛇</title>
-        <link rel="stylesheet" href="style.css">
-      
-    </head>
-    <body>
-        <div id="map">
-            <div class="food" style="left:100px;top:100px"></div>
-        </div>
-        <div id="x"></div>
-       
-    </body>
-    <script type="text/javascript">
-        const width = 20,height = 20,size = 20;
-        let snackarr = [];
-        let foodx,foody;
-        let direction = [1,0];
-        let interval;
-        window.onload = function() {
-            let mapdom = document.getElementById('map');
-            mapdom.style.width = width * size + 'px';
-            mapdom.style.height = height * size + 'px';
-            init();
-            interval = setInterval(game,100);
 
+<head>
+    <meta charset="utf-8">
+    <title>贪吃蛇</title>
+    
+    <style>
+        #map {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 3px solid;
+            background-color: #333333;
         }
 
-        document.onkeydown = function(e){
-            switch(e.keyCode){
-            case 37:if(direction[0] !=1) {direction = [-1,0]} break;
-            case 38:if(direction[1] !=1) {direction = [0,-1]} break;
-            case 39:if(direction[0] !=-1) {direction = [1,0]} break;
-            case 40:if(direction[1] !=-1) {direction = [0,1]} break;
-            case 13:init();interval = setInterval(game,100);break;
-            }
+        .snackbody {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background-color: greenyellow;
+            box-shadow: 0px 0px 10px 0px greenyellow;
         }
 
-        function game(){
-            check();
-            checkself();
-            if(isfood()) {
-                createfood();
-                addbody();
-            }
-            
-            let  snackhtml='';
-            for (let  i = 0 ; i < snackarr.length;i++){
-                snackhtml += '<div class="snackbody" style="left:' + snackarr[i].x*size + 'px;top:'+snackarr[i].y*size +'px"></div>'
-            }
-            snackhtml += '<div class="food" style="left:'+ foodx * size + 'px;top:'+foody * size+'px"></div>'
-            document.getElementById('map').innerHTML = snackhtml;
-            document.getElementById('x').innerHTML = snackarr[0].x;
-            move()
+        .food {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background-color: blueviolet;
+
+        }
+        #a{
+            position: absolute;
+            top:30%;
+            font-size: 30px;
         }
 
-                function init(){
-                snackarr = [] ;
-                snackarr[0] = {x:5,y:4};
-                snackarr[1] = {x:4,y:4};
-                snackarr[2] = {x:3,y:4};
-                createfood();
-            }
-            
-            function createfood() {
-                foodx = Math.floor(Math.random() * width);
-                foody = Math.floor(Math.random() * height);
-            }
-            
-            function move(){
-                for(let i = snackarr.length - 1;i > 0; i --){
-                    snackarr[i].x = snackarr[i - 1].x;
-                    snackarr[i].y = snackarr[i - 1].y;
-                }
+    </style>
+</head>
 
-                snackarr[0].x += direction[0];
-                snackarr[0].y += direction[1];
-            }
-            
-            function check(){
-                let snackheader = snackarr[0];
-                if (snackheader.x < 0 || snackheader.y < 0 || snackheader.x >= width || snackheader.y >= height){
-                    clearInterval(interval);
-                    alert('shibai');
-                }
-            }
-            
-            function isfood(){
-                let snackheader = snackarr[0];
-                if(snackheader.x == foodx && snackheader.y == foody) return true;
-            }
-            
-            function addbody(){
-                let lastbody=snackarr[snackarr.length-1];
-                snackarr.push({x: lastbody.x,y:lastbody.y});
+<body>
+    <div id="map" >
+        <div class="food" style="left:100px;top:100px"></div>
+    </div>
+    <div id="a">
+        <div id="scores"></div>
+        <div id="text"></div>
+    </div>
+    
 
-            }
-            
-            function checkself(){
-                let snackheader = snackarr[0];
-                for (let i = 1;i< snackarr.length ; i++){
-                    if(snackarr[i].x == snackheader.x && snackarr[i].y == snackheader.y){
-                    alert('失败，咬到了自己');
-                    clearInterval(interval);
-                    }
-                }
-            }
-        
+</body>
+<script type="text/javascript">
+    const width = 20, height = 20, size = 20;
+    let snackarr = [];
+    let foodx, foody;
+    let direction = [1, 0];
+    let interval;
+    window.onload = function () {
+        let mapdom = document.getElementById('map');
+        mapdom.style.width = width * size + 'px';
+        mapdom.style.height = height * size + 'px';
+        init();
 
-    </script>
+
+    }
+
+    document.onkeydown = function (e) {
+        switch (e.keyCode) {
+            case 37: case 65: if (direction[0] != 1) { direction = [-1, 0] } break;
+            case 38: case 87: if (direction[1] != 1) { direction = [0, -1] } break;
+            case 39: case 68: if (direction[0] != -1) { direction = [1, 0] } break;
+            case 40: case 83: if (direction[1] != -1) { direction = [0, 1] } break;
+            case 13:
+                clearInterval(interval);
+                direction = [1, 0];
+                document.getElementById('text').innerHTML = '';
+                init(); 
+                interval = setInterval(game, 100);
+                break;
+        }
+    }
+
+    function game() {
+        check();
+        checkself();
+        if (isfood()) {
+            createfood();
+            addbody();
+        }
+
+        let snackhtml = '';
+        for (let i = 0; i < snackarr.length; i++) {
+            snackhtml += '<div class="snackbody" style="left:' + snackarr[i].x * size + 'px;top:' + snackarr[i].y * size + 'px"></div>'
+        }
+        snackhtml += '<div class="food" style="left:' + foodx * size + 'px;top:' + foody * size + 'px"></div>'
+        document.getElementById('map').innerHTML = snackhtml;
+        document.getElementById('scores').innerHTML = snackarr.length - 3;
+        move()
+    }
+
+    function init() {
+        snackarr = [];
+        snackarr[0] = { x: 5, y: 4 };
+        snackarr[1] = { x: 4, y: 4 };
+        snackarr[2] = { x: 3, y: 4 };
+        createfood();
+    }
+
+    function createfood() {
+        foodx = Math.floor(Math.random() * width);
+        foody = Math.floor(Math.random() * height);
+    }
+
+    function move() {
+        for (let i = snackarr.length - 1; i > 0; i--) {
+            snackarr[i].x = snackarr[i - 1].x;
+            snackarr[i].y = snackarr[i - 1].y;
+        }
+
+        snackarr[0].x += direction[0];
+        snackarr[0].y += direction[1];
+    }
+
+    function check() {
+        let snackheader = snackarr[0];
+        if (snackheader.x < 0 || snackheader.y < 0 || snackheader.x >= width || snackheader.y >= height) {
+            clearInterval(interval);
+            document.getElementById('text').innerHTML = '失败，撞到了墙';
+        }
+    }
+
+    function isfood() {
+        let snackheader = snackarr[0];
+        if (snackheader.x == foodx && snackheader.y == foody) return true;
+    }
+
+    function addbody() {
+        let lastbody = snackarr[snackarr.length - 1];
+        snackarr.push({ x: lastbody.x, y: lastbody.y });
+
+    }
+
+    function checkself() {
+        let snackheader = snackarr[0];
+        for (let i = 1; i < snackarr.length; i++) {
+            if (snackarr[i].x == snackheader.x && snackarr[i].y == snackheader.y) {
+                document.getElementById('text').innerHTML = '失败，咬到了自己';
+                clearInterval(interval);
+            }
+        }
+    }
+
+
+</script>
+
 </html>
