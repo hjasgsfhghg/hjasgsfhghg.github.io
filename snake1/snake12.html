@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>贪吃蛇</title>
+
+    <style>
+        #map {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 3px solid;
+            background-color: #333333;
+        }
+
+        .snackbody {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background-color: greenyellow;
+            box-shadow: 0px 0px 10px 0px greenyellow;
+
+        }
+
+        .snackbodyR {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background-color: red;
+            box-shadow: 0px 0px 10px 0px red;
+
+        }
+
+        #food {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background-color: blueviolet;
+
+        }
+
+        #a {
+            position: absolute;
+            top: 30%;
+            font-size: 30px;
+            color: greenyellow;
+        }
+
+        #b {
+            position: absolute;
+            top: 70%;
+            font-size: 30px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map">
+        <div id="a2"></div>
+        <div id="b2"></div>
+        <div id="c3"></div>
+    </div>
+    </div>
+    <div id="a">
+        <div id="scores"></div>
+        <div id="text"></div>
+    </div>
+    <div id="b">
+        <div id="scoresR"></div>
+        <div id="textR"></div>
+    </div>
+
+
+</body>
+<script type="text/javascript">
+    const width = 20, height = 20, size = 20;
+    let snackarr = [];
+    let snackarrR = [];
+    let foodx, foody;
+    let direction = [1, 0];
+    let directionR = [-1, 0];
+    let interval;
+    let intervalR;
+
+
+    window.onload = function () {
+        let mapdom = document.getElementById('map');
+        mapdom.style.width = width * size + 'px';
+        mapdom.style.height = height * size + 'px';
+        init();
+        initR();
+        createfood()
+        intervalFood = setInterval(forfood, 20);
+
+
+
+    }
+
+    document.onkeydown = function (e) {
+        switch (e.keyCode) {
+            case 65: if (direction[0] != 1) { direction = [-1, 0] } break;
+            case 87: if (direction[1] != 1) { direction = [0, -1] } break;
+            case 68: if (direction[0] != -1) { direction = [1, 0] } break;
+            case 83: if (direction[1] != -1) { direction = [0, 1] } break;
+            case 82:
+                clearInterval(interval);
+                direction = [1, 0];
+                document.getElementById('text').innerHTML = '';
+                init();
+                interval = setInterval(game, 100);
+                break;
+            case 37: if (directionR[0] != 1) { directionR = [-1, 0] } break;
+            case 38: if (directionR[1] != 1) { directionR = [0, -1] } break;
+            case 39: if (directionR[0] != -1) { directionR = [1, 0] } break;
+            case 40: if (directionR[1] != -1) { directionR = [0, 1] } break;
+            case 96: clearInterval(intervalR);
+                directionR = [-1, 0];
+                document.getElementById('textR').innerHTML = '';
+                initR();
+                intervalR = setInterval(gameR, 100);
+                break;
+        }
+    }
+
+    function game() {
+
+        if (check() && checkself() && checkother()) {
+        } else {
+            return 0;
+        }
+        if (isfood()) {
+            createfood();
+            addbody();
+        }
+        let snackhtml = '';
+        for (let i = 0; i < snackarr.length; i++) {
+            snackhtml += '<div class="snackbody" style="left:' + snackarr[i].x * size + 'px;top:' + snackarr[i].y * size + 'px"></div>'
+        }
+        //snackhtml += '<div id="food" style="left:' + foodx * size + 'px;top:' + foody * size + 'px"></div>'
+        document.getElementById('a2').innerHTML = snackhtml;
+        document.getElementById('scores').innerHTML = snackarr.length - 3;
+        move()
+    }
+
+    function gameR() {
+        if (checkR() && checkselfR() && checkotherR()) {
+        } else {
+            return 0;
+        }
+        if (isfoodR()) {
+            createfood();
+            addbodyR();
+        }
+        let snackhtmlR = '';
+        for (let i = 0; i < snackarrR.length; i++) {
+            snackhtmlR += '<div class="snackbodyR" style="left:' + snackarrR[i].x * size + 'px;top:' + snackarrR[i].y * size + 'px"></div>'
+        }
+        //snackhtmlR += '<div id="food" style="left:' + foodx * size + 'px;top:' + foody * size + 'px"></div>'
+        document.getElementById('b2').innerHTML = snackhtmlR;
+        document.getElementById('scoresR').innerHTML = snackarrR.length - 3;
+        moveR()
+    }
+
+    function forfood() { document.getElementById('c3').innerHTML = '<div id="food" style="left:' + foodx * size + 'px;top:' + foody * size + 'px"></div>'; }
+
+    function init() {
+        snackarr = [];
+        snackarr[0] = { x: 5, y: 4 };
+        snackarr[1] = { x: 4, y: 4 };
+        snackarr[2] = { x: 3, y: 4 };
+
+    }
+    function initR() {
+        snackarrR = [];
+        snackarrR[0] = { x: width - 5, y: height - 4 };
+        snackarrR[1] = { x: width - 4, y: height - 4 };
+        snackarrR[2] = { x: Number(width - 3), y: height - 4 };
+
+    }
+
+
+
+    function createfood() {
+        foodx = Math.floor(Math.random() * width);
+        foody = Math.floor(Math.random() * height);
+    }
+
+    function move() {
+        for (let i = snackarr.length - 1; i > 0; i--) {
+            snackarr[i].x = snackarr[i - 1].x;
+            snackarr[i].y = snackarr[i - 1].y;
+        }
+
+        snackarr[0].x += direction[0];
+        snackarr[0].y += direction[1];
+    }
+    function moveR() {
+        for (let i = snackarrR.length - 1; i > 0; i--) {
+            snackarrR[i].x = snackarrR[i - 1].x;
+            snackarrR[i].y = snackarrR[i - 1].y;
+        }
+
+        snackarrR[0].x += directionR[0];
+        snackarrR[0].y += directionR[1];
+    }
+
+    function check() {
+        let snackheader = snackarr[0];
+        if (snackheader.x < 0 || snackheader.y < 0 || snackheader.x >= width || snackheader.y >= height) {
+            clearInterval(interval);
+            //document.getElementById('food').remove()
+            document.getElementById('text').innerHTML = '失败，撞到了墙';
+            return (false)
+
+        }
+        return (true)
+    }
+    function checkR() {
+        let snackheaderR = snackarrR[0];
+        if (snackheaderR.x < 0 || snackheaderR.y < 0 || snackheaderR.x >= width || snackheaderR.y >= height) {
+            clearInterval(intervalR);
+            //document.getElementById('foodR').remove()
+            document.getElementById('textR').innerHTML = '失败，撞到了墙';
+            return (false)
+        }
+        return (true)
+    }
+
+    function isfood() {
+        let snackheader = snackarr[0];
+        if (snackheader.x == foodx && snackheader.y == foody) return true;
+    }
+    function isfoodR() {
+        let snackheaderR = snackarrR[0];
+        if (snackheaderR.x == foodx && snackheaderR.y == foody) return true;
+    }
+
+    function addbody() {
+        let lastbody = snackarr[snackarr.length - 1];
+        snackarr.push({ x: lastbody.x, y: lastbody.y });
+
+    }
+    function addbodyR() {
+        let lastbodyR = snackarrR[snackarrR.length - 1];
+        snackarrR.push({ x: lastbodyR.x, y: lastbodyR.y });
+
+    }
+
+
+
+    function checkself() {
+        let snackheader = snackarr[0];
+        for (let i = 1; i < snackarr.length; i++) {
+            if (snackarr[i].x == snackheader.x && snackarr[i].y == snackheader.y) {
+                document.getElementById('text').innerHTML = '失败，咬到了自己';
+                clearInterval(interval);
+                return (false)
+            }
+        }
+        return (true)
+    }
+    function checkselfR() {
+        let snackheaderR = snackarrR[0];
+        for (let i = 1; i < snackarrR.length; i++) {
+            if (snackarrR[i].x == snackheaderR.x && snackarrR[i].y == snackheaderR.y) {
+                document.getElementById('textR').innerHTML = '失败，咬到了自己';
+                clearInterval(intervalR);
+                return (false)
+            }
+        }
+        return (true)
+    }
+
+
+    function checkother() {
+        let snackheader = snackarr[0];
+        for (let i = 1; i < snackarrR.length; i++) {
+            if (snackarrR[i].x == snackheader.x && snackarrR[i].y == snackheader.y) {
+                document.getElementById('text').innerHTML = '失败，与对方靠的太近';
+                clearInterval(interval);
+                return (false)
+            }
+        }
+        return (true)
+    }
+    function checkotherR() {
+        let snackheaderR = snackarrR[0];
+        for (let i = 1; i < snackarr.length; i++) {
+            if (snackarr[i].x == snackheaderR.x && snackarr[i].y == snackheaderR.y) {
+                document.getElementById('textR').innerHTML = '失败，与对方靠的太近';
+                clearInterval(interval);
+                return (false)
+            }
+        }
+        return (true)
+    }
+</script>
+
+</html>
