@@ -90,8 +90,6 @@
         let mapdom = document.getElementById('map');
         mapdom.style.width = width * size + 'px';
         mapdom.style.height = height * size + 'px';
-        init();
-        initR();
         createfood()
         intervalFood = setInterval(forfood, 20);
 
@@ -291,7 +289,7 @@
         for (let i = 1; i < snackarr.length; i++) {
             if (snackarr[i].x == snackheaderR.x && snackarr[i].y == snackheaderR.y) {
                 document.getElementById('textR').innerHTML = '失败，与对方靠的太近';
-                clearInterval(interval);
+                clearInterval(intervalR);
                 return (false)
             }
         }
