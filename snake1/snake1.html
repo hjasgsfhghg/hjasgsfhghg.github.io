@@ -67,10 +67,10 @@
 
     document.onkeydown = function (e) {
         switch (e.keyCode) {
-            case 37: case 65: if (direction[0] != 1) { direction = [-1, 0] } break;
-            case 38: case 87: if (direction[1] != 1) { direction = [0, -1] } break;
-            case 39: case 68: if (direction[0] != -1) { direction = [1, 0] } break;
-            case 40: case 83: if (direction[1] != -1) { direction = [0, 1] } break;
+            case 37: case 65:  case 100:  if (direction[0] != 1) { direction = [-1, 0] } break;
+            case 38: case 87:  case 104:  if (direction[1] != 1) { direction = [0, -1] } break;
+            case 39: case 68:  case 102:  if (direction[0] != -1) { direction = [1, 0] } break;
+            case 40: case 83:  case 98:  if (direction[1] != -1) { direction = [0, 1] } break;
             case 13:
                 clearInterval(interval);
                 direction = [1, 0];
