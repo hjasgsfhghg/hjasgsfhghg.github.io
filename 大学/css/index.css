@@ -231,6 +231,30 @@ p{
     background: #ebebeb;
 }
 
+.hjasgsfhghg{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 500px;
+    font-size: 50px;
+    line-height: 50px;
+    float: left;
+    overflow: hidden;
+}
+
+.hjasgsfhghg a{
+    position: absolute;
+    right: 30px;
+    margin: 50px 0 50px 0;
+    display: block;
+    float: left;
+}
+
+.hjasgsfhghg p{
+    display: block;
+    float: left;
+}
+
 
 
 
