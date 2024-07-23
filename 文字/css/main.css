@@ -1,0 +1,54 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.all{
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%,0);
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    background: black;
+}
+.show{
+    margin: 2%;
+    border: 0;
+    padding: 0;
+    width: 96%;
+    height: 60%;
+    background: green;
+}
+#ul{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    background-color: blanchedalmond;
+    overflow-y: scroll;
+}
+#ul li{
+    margin: 0;
+    padding: 0;
+    width: 98%;
+    height: auto;
+    font-size: 20px;
+}
+.control{
+    margin: 2%;
+    border: 0;
+    padding: 0;
+    width: 96%;
+    height: 60%;
+    background: green;
+}
+
+button{
+    width: 4rem;
+    height: 2rem;
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
