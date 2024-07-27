@@ -9,4 +9,4 @@ setInterval(function(){
         localStorage.setItem('cat',cat.toString())
     }
     
-},3000)
+},10000)

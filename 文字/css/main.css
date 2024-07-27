@@ -2,46 +2,54 @@ body{
     margin: 0;
     padding: 0;
 }
-.all{
+
+#all{
     position: fixed;
     left: 50%;
     transform: translate(-50%,0);
     width: 100%;
     max-width: 1200px;
     height: 100%;
-    background: black;
+    background: palegoldenrod;
 }
-.show{
+
+#show{
     margin: 2%;
     border: 0;
     padding: 0;
     width: 96%;
-    height: 60%;
-    background: green;
+    height: 58%;
+    outline: black solid 2px;
+    border-radius: 5px;
 }
+
 #ul{
     margin: 0;
     padding: 0;
     width: 100%;
     height: auto;
     max-height: 100%;
-    background-color: blanchedalmond;
     overflow-y: scroll;
 }
+
 #ul li{
+    font-size: 20px;
+    text-align: left;
     margin: 0;
     padding: 0;
-    width: 98%;
+    width: 100%;
     height: auto;
-    font-size: 20px;
+    border-bottom: 2px solid rgba(0, 0, 0, .1);
 }
-.control{
+
+#control{
     margin: 2%;
     border: 0;
     padding: 0;
     width: 96%;
-    height: 60%;
-    background: green;
+    height: 38%;
+    outline: black solid 2px;
+    border-radius: 5px;
 }
 
 button{
@@ -49,6 +57,29 @@ button{
     height: 2rem;
     font-size: 20px;
     padding: 0;
-    margin: 0;
+    margin: 2%;
+    border: 0;
+    border-radius: 5px;
+    outline: black solid 2px;
+}
+
+input{
+    width: auto;
+    height: 2rem;
+    font-size: 20px;
+    padding: 0;
+    margin: 2%;
+    border: 0;
+    border-radius: 5px;
+    outline: black solid 2px;
+}
+
+.chat{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    bottom: 0;
+    padding: 0;
+    margin: 2%;
     border: 0;
 }
