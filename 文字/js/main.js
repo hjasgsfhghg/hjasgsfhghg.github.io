@@ -162,6 +162,7 @@ function talka(){
     var text = document.getElementById('text').value
     var msg = {
         type:'liaotian',
+        username:username,
         text:text,
         time:time
     }
