@@ -6,15 +6,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/main.css">
 </head>
-<body>
+<body onload="start()">
     <script src="./js/main.js"></script>
-    <script src="./js/catch.js"></script>
-    
+    <script src="./js/catch.js"></script>    
 
     <div id="all">
         <div id="show">
             <ul id="ul">
-                
+                <li>若网页有使用异常(未提示用户连接)，请手动在浏览器设置中将该网页(hjasgsfhghg.github.io)设置为可信任网站</li>
             </ul>
         </div>
         <div id="control">
@@ -22,15 +21,26 @@
             <button id="cat" onclick="cata()">养猫</button>
             <button id="check" onclick="check()">查看</button>
             <button id="end" onclick="end()">重置</button>
-            <button id="color_night" onclick="color_night()">夜间</button>
-            <button id="color_leng" onclick="color_leng()">冷色</button>
-            <button id="color_nuan" onclick="color_nuan()">暖色</button>
-            <button id="color_heihong" onclick="color_heihong()">黑红</button>
+            <button id="color_night" onclick="color_night()" value="夜间">颜色</button>
+            <button id="save" onclick="save()">上传</button>
+            <button id="online" onclick="onlinea()">查看在线玩家</button>
+            <button id="paihang" onclick="paihanga()">查看所有玩家数据</button>
+            <button id="gonggao" onclick="gonggao()">作者想说的话</button>
+            <a href="hjasgsfhghg.github.io">跳转至作者主页</a>
+
+
+
             <div class="chat">
                 <input id='text' type="text" placeholder="在此输入聊天内容"/>
                 <button id="talk" onclick="talka()">发送</button>
             </div>
 
+        </div>
+        <div id="start">
+            <input type="text" id="username" placeholder="用户名">
+            <input type="text" id="password" placeholder="密码">
+            <button id="join" onclick="joina()">登录</button>
+            <button id="sign" onclick="signa()">注册</button>
         </div>
     </div>
     

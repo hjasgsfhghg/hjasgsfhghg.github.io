@@ -1,6 +1,7 @@
 body{
     margin: 0;
     padding: 0;
+    font-size: 15px;
 }
 
 #all{
@@ -33,7 +34,7 @@ body{
 }
 
 #ul li{
-    font-size: 20px;
+    font-size: 15px;
     text-align: left;
     margin: 0;
     padding: 0;
@@ -53,22 +54,22 @@ body{
 }
 
 button{
-    width: 4rem;
+    width: auto;
     height: 2rem;
-    font-size: 20px;
-    padding: 0;
-    margin: 2%;
+    font-size: 15px;
+    padding: 0 1rem;
+    margin: 5px;
     border: 0;
     border-radius: 5px;
     outline: black solid 2px;
 }
 
 input{
-    width: auto;
+    width: 250px;
     height: 2rem;
     font-size: 20px;
     padding: 0;
-    margin: 2%;
+    margin: 5px;
     border: 0;
     border-radius: 5px;
     outline: black solid 2px;
@@ -80,6 +81,16 @@ input{
     width: 100%;
     bottom: 0;
     padding: 0;
+    margin: 5px;
+    border: 0;
+}
+
+#start{
     margin: 2%;
     border: 0;
+    padding: 0;
+    width: 96%;
+    height: 38%;
+    outline: black solid 2px;
+    border-radius: 5px;
 }
