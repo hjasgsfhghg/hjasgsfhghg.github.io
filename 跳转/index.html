@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        console.log(params.get('id'))
+        const id = params.get('id')
+        
+        location.assign(`http://music.163.com/song/media/outer/url?id=${id}.mp3`)
+        
+    
+    </script>
+    
+</body>
+</html>
